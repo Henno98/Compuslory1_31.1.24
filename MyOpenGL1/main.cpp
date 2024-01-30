@@ -48,20 +48,25 @@ const unsigned int SCR_HEIGHT = 600;
 //"}\n\0";
 //vertex shader source 
 const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
+"layout(location = 0) in vec3 aPos;\n"
+"layout(location = 1) in vec3 aColor;\n"
+
+"out vec3 FragColor;\n"
+
 "void main()\n"
 "{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-
-
-// fragmenet shader source 
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(1.0f, 0.f, 0.f, 1.0f);\n"
+"gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+"FragColor = aColor;\n"
 "}\n\0";
+//// fragmenet shader source 
+const char* fragmentShaderSource = "#version 330 core\n"
+"in vec3 FragColor;\n"
+"out vec4 FinalColor;\n"
+"void main()\n"
+"{\n"
+"FinalColor = vec4(FragColor, 1.0);\n"
+"}\n\0";
+
 
 struct Vertex
 {
